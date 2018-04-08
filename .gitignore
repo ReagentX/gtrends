@@ -1,3 +1,7 @@
 bin/*
 lib/*
 .vscode/*
+hltv_scraper.egg-info/*
+gtrends.egg-info/*
+*.pyc
+output/*
