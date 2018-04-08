@@ -30,8 +30,3 @@ def gen_data(keywords, normalize=True):
         cols = list(data.columns.values)
         cols.append(cols.pop(cols.index('isPartial')))
         return data[cols]
-
-
-k = ['Facebook', 'Instagram', 'Twitter', 'Snapchat', 'Google', 'Reddit']
-d = gen_data(k, False)
-print(d.head())
