@@ -4,22 +4,26 @@ import pandas as pd
 
 # Connect to Google 
 pytrends = TrendReq(hl='en-US', tz=360)
-# Build the payload
 
 def gen_data(keywords, normalize=True):
-    if normalize: 
         pytrends.build_payload(keywords, cat=0, timeframe='today 5-y', geo='', gprop='')
-
-        b = pytrends.interest_over_time()
-        print(b)
+        data = pytrends.interest_over_time()
+        return data
     else:
-        data = pd.DataFrame()
         for keyword in keywords:
             print(f'Getting {keyword}')
-            pytrends.build_payload(keyword, cat=0, timeframe='today 5-y', geo='', gprop='')
-            data.merge(pytrends.interest_over_time())
-        print(data)
+            if keyword == keywords[0]:
+                pytrends.build_payload([keyword], cat=0, timeframe='today 5-y', geo='', gprop='')
+                data = pytrends.interest_over_time()
+                continue
+            pytrends.build_payload([keyword], cat=0, timeframe='today 5-y', geo='', gprop='')
+            data[keyword] = pytrends.interest_over_time()[keyword]
+        # Rearrange columns
+        cols = list(data.columns.values)
+        cols.append(cols.pop(cols.index('isPartial')))
+        return data[cols]
 
 
-k = ['Facebook', 'Instagram']
-gen_data(k, False)
+k = ['Facebook', 'Instagram', 'Twitter', 'Snapchat', 'Pinterest', 'Google', 'Reddit']
+d = gen_data(k, False)
+print(d)
