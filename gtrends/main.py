@@ -6,6 +6,9 @@ import pandas as pd
 pytrends = TrendReq(hl='en-US', tz=360)
 
 def gen_data(keywords, normalize=True):
+    if normalize:
+        if len(keywords) > 5:
+            raise ValueError('Too many keywords for normalizaion.')
         pytrends.build_payload(keywords, cat=0, timeframe='today 5-y', geo='', gprop='')
         data = pytrends.interest_over_time()
         return data
