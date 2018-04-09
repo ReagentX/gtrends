@@ -1,6 +1,6 @@
 # gtrends: A Google Trends Analytics Package
 
-Inspired by [this reddit post](https://www.reddit.com/r/dataisbeautiful/comments/8ahy05/internet_communities_popularity_on_google_trends/), I wanted to build a simple platform to pull data from Google Trends. The author made the interesting choice to not normalzie the data (i.e., that the value of popularity does not represent the same amout of search volume across each category). 
+Inspired by [this reddit post](https://www.reddit.com/r/dataisbeautiful/comments/8ahy05/internet_communities_popularity_on_google_trends/), I wanted to build a simple platform to pull data from Google Trends. The author made the interesting choice to not normalize the data (i.e., that the value of popularity does not represent the same amout of search volume across each category). 
 
 While this means that it _does not_ compare the actual popularity of the social networks, it _does_ elicudate where the networks' popularity happens to spike in the context of other networks' popularity. I built in an option that allows you to specify whether to normalize or not.
 
