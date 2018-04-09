@@ -4,4 +4,3 @@ lib/*
 hltv_scraper.egg-info/*
 gtrends.egg-info/*
 *.pyc
-output/*
