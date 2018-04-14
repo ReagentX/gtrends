@@ -1,9 +1,11 @@
 import pandas as pd
 from gtrends import generate
 
-# Object properties
+# Required object properties
 keywords = ['Facebook', 'Instagram', 'Twitter', 'Google Plus', 'Reddit']
 normalize = False
+
+# These are optional and may be omitted from construction
 category = 0  # https://github.com/pat310/google-trends-api/wiki/Google-Trends-Categories
 geo = ''  # Empty is world, use 2-letter ISO code
 timezone = 480  # 480 for PST, timezone offset in minutes
@@ -14,7 +16,6 @@ gprop = ''  # Empty is "Web search", see above link
 gt = generate.GoogleTrendsData(keywords, normalize, category, timezone, timeframe, geo, gprop)
 
 # Print the status of the request
-# gt.set_normalize(False)
 print(gt)
 
 # Generate the data
