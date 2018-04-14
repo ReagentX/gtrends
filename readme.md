@@ -5,10 +5,12 @@ Inspired by [this reddit post](https://www.reddit.com/r/dataisbeautiful/comments
 While this means that it _does not_ compare the actual popularity of the social networks, it _does_ elicudate where the networks' popularity happens to spike in the context of other networks' popularity. I built in an option that allows you to specify whether to normalize or not.
 
 ## Normalized
-![](https://i.imgur.com/AU0c7fu.png)
+
+![Normalized](https://i.imgur.com/AU0c7fu.png)
 
 ## Not Normalized
-![](https://i.imgur.com/120geGD.png)
+
+![Not Normalized](https://i.imgur.com/120geGD.png)
 
 For an example on how to use this script see `run.py` in the `scripts` folder. In short, define a list of keywords:
 
