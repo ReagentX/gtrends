@@ -4,6 +4,8 @@ Inspired by [this reddit post](https://www.reddit.com/r/dataisbeautiful/comments
 
 While this means that it _does not_ compare the actual popularity of the social networks, it _does_ elicudate where the networks' popularity happens to spike in the context of other networks' popularity. I built in an option that allows you to specify whether to normalize or not.
 
+The `get()` function is multiprocessed, thus multiple keywords will be handled concurrently to speed up data collection routines. The number of processes depends on the number of keywords passed, however, Google may rate limit overly ambitious requests.
+
 ## Normalized
 
 ![Normalized](https://i.imgur.com/AU0c7fu.png)
