@@ -62,13 +62,13 @@ class GoogleTrendsData(object):
             sys.stdout.flush()
 
         pool.join()
-        
+
         # Result is a list of each different Pandas Dataframe, so we concatenate them together
         result = pd.concat(result, axis=1, join='inner').drop('isPartial', axis=1)
 
         return result
 
-    def gen_data(self, keywords):
+    def gen_data(self, keywords, timeframe='today 5-y', geo='', gprop=''):
         # Handle when we are passed a list of single letters
         if len(keywords[0]) == 1:
             keywords = [''.join(keywords)]
@@ -77,7 +77,7 @@ class GoogleTrendsData(object):
             if len(keywords) > 5:
                 raise ValueError('Too many keywords for normalizaion.')
 
-            pytrends.build_payload(keywords, cat=0, timeframe='today 5-y', geo='', gprop='')
+            pytrends.build_payload(keywords, cat=0, timeframe, geo, gprop)
             data = pytrends.interest_over_time()
             return data
         else:
@@ -86,12 +86,12 @@ class GoogleTrendsData(object):
 
                 # Build the dataset with the first keyword
                 if keyword == keywords[0]:
-                    pytrends.build_payload([keyword], cat=0, timeframe='today 5-y', geo='', gprop='')
+                    pytrends.build_payload([keyword], cat=0, timeframe, geo, gprop)
                     data = pytrends.interest_over_time()
                     continue
 
                 # After we have the dataset we append the new data
-                pytrends.build_payload([keyword], cat=0, timeframe='today 5-y', geo='', gprop='')
+                pytrends.build_payload([keyword], cat=0, timeframe, geo, gprop)
                 data[keyword] = pytrends.interest_over_time()[keyword]
 
             # Rearrange columns
