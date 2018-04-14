@@ -16,15 +16,19 @@ For an example on how to use this script see `run.py` in the `scripts` folder. I
 
     keywords = ['Facebook', 'Instagram', 'Twitter', 'Google Plus', 'Reddit']
 
-Determine whether you want to normalize the data or not:
+Determine if you want to normalize:
 
     normalize = False
 
-Run `gen_data()` with the arguments above.
+Generate a GoogleTrendsData object:
 
-    data = generate.gen_data(keywords, normalize)
+    gt = generate.GoogleTrendsData(keywords, normalize)
 
-Happy analyzing!
+Run `gt.get()`:
+
+    data = gt.get()
+
+This will return a Pandas DataFrame. Happy analyzing!
 
 ***
 
