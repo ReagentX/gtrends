@@ -12,6 +12,10 @@ class GoogleTrendsData(object):
         self.kw = kw
         self.normalize = normalize
 
+    def __repr__(self):
+        status = 'normalized' if self.normalize else 'not normalized'
+        return f'Lookup {self.kw}, {status}.'
+
     def set_normalize(self, n: bool):
         if n:
             self.normalize = True
@@ -69,7 +73,6 @@ class GoogleTrendsData(object):
         if len(keywords[0]) == 1:
             keywords = [''.join(keywords)]
         if self.normalize:
-            print('fuck')
             # Raise error before we send the request
             if len(keywords) > 5:
                 raise ValueError('Too many keywords for normalizaion.')
