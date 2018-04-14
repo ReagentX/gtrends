@@ -4,13 +4,16 @@ from pytrends.request import TrendReq
 from multiprocessing.pool import Pool as ThreadPool
 
 
-# Connect to Google 
-pytrends = TrendReq(hl='en-US', tz=360)
-
 class GoogleTrendsData(object):
-    def __init__(self, kw: list, normalize: bool):
+    '''Class to get data from Google Trends concurrently.'''
+    def __init__(self, kw: list, normalize: bool, category: int, timezone: int, timeframe: str, geo: str, gprop: str):
         self.kw = kw
         self.normalize = normalize
+        self.cat = category
+        self.tf = timeframe
+        self.geo = geo
+        self.gprop = gprop
+        self.pytrends = TrendReq(hl='en-US', tz=timezone)
 
     def __repr__(self):
         status = 'normalized' if self.normalize else 'not normalized'
@@ -68,17 +71,19 @@ class GoogleTrendsData(object):
 
         return result
 
-    def gen_data(self, keywords, timeframe='today 5-y', geo='', gprop=''):
+    def gen_data(self, keywords):
+        '''Generate a Pandas Dataframe based on the keyword passed'''
         # Handle when we are passed a list of single letters
         if len(keywords[0]) == 1:
             keywords = [''.join(keywords)]
+
         if self.normalize:
             # Raise error before we send the request
             if len(keywords) > 5:
                 raise ValueError('Too many keywords for normalizaion.')
 
-            pytrends.build_payload(keywords, cat=0, timeframe, geo, gprop)
-            data = pytrends.interest_over_time()
+            self.pytrends.build_payload(keywords, self.cat, self.tf, self.geo, self.gprop)
+            data = self.pytrends.interest_over_time()
             return data
         else:
             for keyword in keywords:
@@ -86,13 +91,13 @@ class GoogleTrendsData(object):
 
                 # Build the dataset with the first keyword
                 if keyword == keywords[0]:
-                    pytrends.build_payload([keyword], cat=0, timeframe, geo, gprop)
-                    data = pytrends.interest_over_time()
+                    self.pytrends.build_payload([keyword], self.cat, self.tf, self.geo, self.gprop)
+                    data = self.pytrends.interest_over_time()
                     continue
 
                 # After we have the dataset we append the new data
-                pytrends.build_payload([keyword], cat=0, timeframe, geo, gprop)
-                data[keyword] = pytrends.interest_over_time()[keyword]
+                self.pytrends.build_payload([keyword], self.cat, self.tf, self.geo, self.gprop)
+                data[keyword] = self.pytrends.interest_over_time()[keyword]
 
             # Rearrange columns
             cols = list(data.columns.values)
