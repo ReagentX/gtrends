@@ -35,4 +35,5 @@ This will return a Pandas DataFrame. Happy analyzing!
 ## Notes
 
 - Google only allows you to normalize up to 5 keywords at once. Trying to normalize more than 5 keywords will raise a `ValueError`.
+- Google may rate limit you if you make too many requests which can lead to `TypeError`s or `ResponseError`s.
 - This package is dependent on [`pytrends`](https://github.com/GeneralMills/pytrends) which can be installed via pip.
