@@ -7,7 +7,7 @@ normalize = False
 category = 0  # https://github.com/pat310/google-trends-api/wiki/Google-Trends-Categories
 geo = ''  # Empty is world, use 2-letter ISO code
 timezone = 480  # 480 for PST, timezone offset in minutes
-timeframe = 'all'  # See `timeframe` under https://github.com/GeneralMills/pytrends#common-api-parameters
+timeframe = 'today 5-y'  # See `timeframe` under https://github.com/GeneralMills/pytrends#common-api-parameters
 gprop = ''  # Empty is "Web search", see above link
 
 # Generate the object that will normalize the data
@@ -22,4 +22,4 @@ data = gt.get()
 print(data.head())
 
 # Dump to a CSV file
-# data.to_csv(f'./output/{"".join(keywords)}.csv')
+data.to_csv(f'./output/{"".join(keywords)}.csv')
