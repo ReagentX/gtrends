@@ -3,11 +3,11 @@ from gtrends import generate
 
 # Criteria
 keywords = ['Facebook', 'Instagram', 'Twitter', 'Google Plus', 'Reddit']
-normalize = False
+gt = generate.GoogleTrendsData(keywords, True)
 
 # Generate the data
-data = generate.gen_data(keywords, normalize)
-print(data.head())
+data = gt.get()
+print(data)
 
 # Dump to a CSV file
-data.to_csv(f'./output/{"".join(keywords)}.csv')
+# data.to_csv(f'./output/{"".join(keywords)}.csv')
