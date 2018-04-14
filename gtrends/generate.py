@@ -6,7 +6,7 @@ from multiprocessing.pool import Pool as ThreadPool
 
 class GoogleTrendsData(object):
     '''Class to get data from Google Trends concurrently.'''
-    def __init__(self, kw: list, normalize: bool, category: int, timezone: int, timeframe: str, geo: str, gprop: str):
+    def __init__(self, kw: list, normalize: bool, category='', timezone=0, timeframe='', geo='', gprop=''):
         self.kw = kw
         self.normalize = normalize
         self.cat = category
