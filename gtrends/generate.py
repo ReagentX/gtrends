@@ -1,11 +1,8 @@
 import sys
 import pandas as pd
-import datetime
 from pytrends.request import TrendReq
 from multiprocessing.pool import Pool as ThreadPool
 
-
-ORIGIN = datetime.datetime(2004, 1, 1)  # The first day of Google Trends Data
 
 class GoogleTrendsData(object):
     '''Class to get data from Google Trends concurrently.'''
