@@ -4,3 +4,5 @@ lib/*
 hltv_scraper.egg-info/*
 gtrends.egg-info/*
 *.pyc
+pyvenv.cfg
+pip-selfcheck.json
