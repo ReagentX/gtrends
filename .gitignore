@@ -6,3 +6,4 @@ gtrends.egg-info/*
 *.pyc
 pyvenv.cfg
 pip-selfcheck.json
+*.png
