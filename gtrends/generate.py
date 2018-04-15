@@ -36,7 +36,7 @@ class GoogleTrendsData(object):
             # If we get an array back instead of a DataFrame we are rate limited
             try: 
                 result.drop('isPartial', axis=1)
-            except:
+            except AttributeError:
                 sys.exit('Rate limited.')
 
             return result.drop('isPartial', axis=1)
@@ -58,7 +58,7 @@ class GoogleTrendsData(object):
         # Result is a list of each different Pandas Dataframe, so we concatenate them together
         try:
             result = pd.concat(result, axis=1, join='inner').drop('isPartial', axis=1)
-        except:
+        except TypeError:
             sys.exit('Rate limited.')
 
         return result
@@ -81,7 +81,7 @@ class GoogleTrendsData(object):
 
             data = self.pytrends.interest_over_time()
             return data
-        
+
         # Handle when we are not normalizing the data
         else:
             for keyword in keywords:
