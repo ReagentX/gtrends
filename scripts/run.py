@@ -23,4 +23,4 @@ data = gt.get()
 
 # Dump to a CSV file
 gt.save(data)
-gt.plot(data)
+gt.graph(data)

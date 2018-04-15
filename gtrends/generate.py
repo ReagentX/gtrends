@@ -119,7 +119,7 @@ class GoogleTrendsData(object):
 
             return data[cols]
 
-    def plot(self, data, filename='o'):
+    def graph(self, data, filename='o'):
         p = data.plot(x='date')
         p.set_title(f'Interest Over Time: {"Normalized" if self.normalize else "Not Normalized"}')
         p.set_ylabel('Interest Level')
