@@ -19,17 +19,16 @@ class GoogleTrendsData(object):
     def __repr__(self):
         return f'Lookup {self.kw}, {"normalized" if self.normalize else "not normalized"}.'
 
-    def set_normalize(self, n: bool):
-        if n:
-            self.normalize = True
-        else:
-            self.normalize = False
+    def norm_str(self, space=False):
+        if space:
+            return 'Normalized' if self.normalize else 'Not Normalized'
+        return 'Normalized' if self.normalize else 'NotNormalized'
 
     # Multiprocessing
     def get(self, processes=10):
         """Handles multiprocessing using ThreadPool; sends items from a list to a function and gets the results as a list"""
         # If we already have the data, get it from the CSV file without talking to Google
-        file_name = 'output/' + ''.join(self.kw) + ('Normalized' if self.normalize else 'NotNormalized') + '.csv'
+        file_name = 'output/' + ''.join(self.kw) + (self.norm_str()) + '.csv'
 
         try:
             data = pd.read_csv(file_name)
@@ -121,11 +120,11 @@ class GoogleTrendsData(object):
 
     def graph(self, data, filename='o'):
         p = data.plot(x='date')
-        p.set_title(f'Interest Over Time: {"Normalized" if self.normalize else "Not Normalized"}')
+        p.set_title(f'Interest Over Time: {self.norm_str(True)}')
         p.set_ylabel('Interest Level')
         p.set_xlabel('Date')
         p.get_figure().savefig(f'{filename}.png')
         return p
 
     def save(self, d):
-        d.to_csv(f'./output/{"".join(self.kw)}{"Normalized" if self.normalize else "NotNormalized"}.csv', index=False)
+        d.to_csv(f'./output/{"".join(self.kw)}{self.norm_str()}.csv', index=False)
