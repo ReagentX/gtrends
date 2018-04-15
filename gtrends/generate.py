@@ -1,6 +1,7 @@
 import sys
 import pandas as pd
 from pytrends.request import TrendReq
+from pytrends.exceptions import ResponseError
 from multiprocessing.pool import Pool as ThreadPool
 
 
@@ -75,8 +76,9 @@ class GoogleTrendsData(object):
 
             try:
                 self.pytrends.build_payload(keywords, self.cat, self.tf, self.geo, self.gprop)
-            except:
+            except ResponseError:
                 return []
+
             data = self.pytrends.interest_over_time()
             return data
         
@@ -89,8 +91,9 @@ class GoogleTrendsData(object):
                 if keyword == keywords[0]:
                     try:
                         self.pytrends.build_payload([keyword], self.cat, self.tf, self.geo, self.gprop)
-                    except:
+                    except ResponseError:
                         return []
+
                     data = self.pytrends.interest_over_time()
                     continue
 
