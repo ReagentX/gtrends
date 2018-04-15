@@ -13,14 +13,14 @@ timeframe = 'today 5-y'  # See `timeframe` under https://github.com/GeneralMills
 gprop = ''  # Empty is "Web search", see above link
 
 # Generate the object that will normalize the data
-gt = generate.GoogleTrendsData(keywords, normalize, category, timezone, timeframe, geo, gprop)
+gt = generate.GoogleTrendsData(keywords, normalize)
 
-# Print the status of the request
+# Print the request info
 print(gt)
 
 # Generate the data
 data = gt.get()
-print(data.head())
 
 # Dump to a CSV file
-data.to_csv(f'./output/{"".join(keywords)}.csv')
+gt.save(data)
+gt.plot(data)
