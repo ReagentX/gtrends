@@ -38,7 +38,7 @@ This will return a Pandas DataFrame. Happy analyzing!
 
     gt.save(data)
 
-Will export the data to a CSV file. This is useful because the script checks the cache before making new queries, thus reducing the likelihood of hitting the rate limit.
+Will export the data to a CSV file. This is useful because the script checks the output folder before making new queries, thus reducing the likelihood of hitting the rate limit.
 
     gt.grapgh(data, file_name)
 
