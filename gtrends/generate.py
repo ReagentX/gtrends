@@ -17,8 +17,7 @@ class GoogleTrendsData(object):
         self.pytrends = TrendReq(hl='en-US', tz=timezone)
 
     def __repr__(self):
-        status = 'normalized' if self.normalize else 'not normalized'
-        return f'Lookup {self.kw}, {status}.'
+        return f'Lookup {self.kw}, {"normalized" if self.normalize else "not normalized"}.'
 
     def set_normalize(self, n: bool):
         if n:
@@ -29,6 +28,19 @@ class GoogleTrendsData(object):
     # Multiprocessing
     def get(self, processes=10):
         """Handles multiprocessing using ThreadPool; sends items from a list to a function and gets the results as a list"""
+        # If we already have the data, get it from the CSV file without talking to Google
+        file_name = 'output/' + ''.join(self.kw) + ('Normalized' if self.normalize else 'NotNormalized') + '.csv'
+
+        try:
+            data = pd.read_csv(file_name)
+            print('Data cached. Reading csv...')
+            # Convert the date column from str to datetime
+            data['date'] = pd.to_datetime(data['date'])
+            return data
+        except FileNotFoundError:
+            print('Cache miss')
+            pass
+
         # If we want to normalize, bypass threading
         if self.normalize:
             result = self.gen_data(self.kw)
@@ -108,13 +120,12 @@ class GoogleTrendsData(object):
             return data[cols]
 
     def plot(self, data, filename='o'):
-        # Clean in case the format of the date is wrong, i.e. when we read from csv
-        data['date'] = pd.to_datetime(data['date'], format='%Y-%m-%d')
-
-        p = data.plot(kind='line', x='date')
-        norm = 'Normalized' if self.normalize else 'Not Normalized'
-        p.set_title(f'Interest Over Time: {norm}')
+        p = data.plot(x='date')
+        p.set_title(f'Interest Over Time: {"Normalized" if self.normalize else "Not Normalized"}')
         p.set_ylabel('Interest Level')
         p.set_xlabel('Date')
-        p.get_figure().savefig('o.png')
+        p.get_figure().savefig(f'{filename}.png')
         return p
+
+    def save(self, d):
+        d.to_csv(f'./output/{"".join(self.kw)}{"Normalized" if self.normalize else "NotNormalized"}.csv', index=False)
