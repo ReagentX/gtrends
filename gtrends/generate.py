@@ -37,7 +37,7 @@ class GoogleTrendsData(object):
             data['date'] = pd.to_datetime(data['date'])
             return data
         except FileNotFoundError:
-            print('Cache miss')
+            print('Connecting to Google.')
             pass
 
         # If we want to normalize, bypass threading
