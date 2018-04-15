@@ -31,6 +31,13 @@ class GoogleTrendsData(object):
         # If we want to normalize, bypass threading
         if self.normalize:
             result = self.gen_data(self.kw)
+
+            # If we get an array back instead of a DataFrame we are rate limited
+            try: 
+                result.drop('isPartial', axis=1)
+            except:
+                sys.exit('Rate limited.')
+
             return result.drop('isPartial', axis=1)
 
         # Define the number of processes, use less than or equal to the defined value
@@ -45,34 +52,18 @@ class GoogleTrendsData(object):
         # Calls gen_data() and adds the filesize returned each call to an self.kw
         result = (pool.imap_unordered(self.gen_data, self.kw))
         pool.close()
-
-        # Display progress as the scraper runs its processes
-        while (len(self.kw) > 1):
-            completed = result._index
-
-            # Break out of the loop if all tasks are done or if there is only one task
-            if (completed == len(self.kw)):
-                sys.stdout.flush()
-                sys.stdout.write('\r' + "")
-                sys.stdout.flush()
-                break
-
-            # Avoid a ZeroDivisionError
-            if completed > 0:
-                sys.stdout.flush()
-                sys.stdout.write('\r' + f"{completed/len(self.kw)*100:.0f}% done. {len(self.kw)-completed} left. ")
-                sys.stdout.flush()
-            sys.stdout.flush()
-
         pool.join()
 
         # Result is a list of each different Pandas Dataframe, so we concatenate them together
-        result = pd.concat(result, axis=1, join='inner').drop('isPartial', axis=1)
+        try:
+            result = pd.concat(result, axis=1, join='inner').drop('isPartial', axis=1)
+        except:
+            sys.exit('Rate limited.')
 
         return result
 
     def gen_data(self, keywords):
-        '''Generate a Pandas Dataframe based on the keyword passed'''
+        '''Generate a Pandas Dataframe based on the keyword(s) passed'''
         # Handle when we are passed a list of single letters
         if len(keywords[0]) == 1:
             keywords = [''.join(keywords)]
@@ -82,16 +73,24 @@ class GoogleTrendsData(object):
             if len(keywords) > 5:
                 raise ValueError('Too many keywords for normalizaion.')
 
-            self.pytrends.build_payload(keywords, self.cat, self.tf, self.geo, self.gprop)
+            try:
+                self.pytrends.build_payload(keywords, self.cat, self.tf, self.geo, self.gprop)
+            except:
+                return []
             data = self.pytrends.interest_over_time()
             return data
+        
+        # Handle when we are not normalizing the data
         else:
             for keyword in keywords:
                 print(f'Getting {keyword}')
 
                 # Build the dataset with the first keyword
                 if keyword == keywords[0]:
-                    self.pytrends.build_payload([keyword], self.cat, self.tf, self.geo, self.gprop)
+                    try:
+                        self.pytrends.build_payload([keyword], self.cat, self.tf, self.geo, self.gprop)
+                    except:
+                        return []
                     data = self.pytrends.interest_over_time()
                     continue
 
