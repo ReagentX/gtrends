@@ -106,3 +106,15 @@ class GoogleTrendsData(object):
             cols.append(cols.pop(cols.index('isPartial')))
 
             return data[cols]
+
+    def plot(self, data, filename='o'):
+        # Clean in case the format of the date is wrong, i.e. when we read from csv
+        data['date'] = pd.to_datetime(data['date'], format='%Y-%m-%d')
+
+        p = data.plot(kind='line', x='date')
+        norm = 'Normalized' if self.normalize else 'Not Normalized'
+        p.set_title(f'Interest Over Time: {norm}')
+        p.set_ylabel('Interest Level')
+        p.set_xlabel('Date')
+        p.get_figure().savefig('o.png')
+        return p
