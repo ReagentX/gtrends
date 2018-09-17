@@ -7,7 +7,7 @@ from multiprocessing.pool import Pool as ThreadPool
 
 class GoogleTrendsData(object):
     '''Class to get data from Google Trends concurrently.'''
-    def __init__(self, kw: list, normalize: bool, category='', timezone=0, timeframe='', geo='', gprop=''):
+    def __init__(self, kw: list, normalize: bool, category='', timezone=0, timeframe='', geo='US', gprop=''):
         self.kw = kw
         self.normalize = normalize
         self.cat = category
@@ -82,11 +82,11 @@ class GoogleTrendsData(object):
 
         if self.normalize:
             # Raise error before we send the request
-            if len(keywords) > 5:
+            if len(keywords) > 5 & isinstance(keywords, list):
                 raise ValueError('Too many keywords for normalizaion.')
 
             try:
-                self.pytrends.build_payload(keywords, self.cat, self.tf, self.geo, self.gprop)
+                self.pytrends.build_payload(keywords, cat=self.cat, timeframe=self.tf, geo=self.geo, gprop=self.gprop)
             except ResponseError:
                 return []
 
@@ -101,7 +101,7 @@ class GoogleTrendsData(object):
                 # Build the dataset with the first keyword
                 if keyword == keywords[0]:
                     try:
-                        self.pytrends.build_payload([keyword], self.cat, self.tf, self.geo, self.gprop)
+                        self.pytrends.build_payload([keyword], cat=self.cat, timeframe=self.tf, geo=self.geo, gprop=self.gprop)
                     except ResponseError:
                         return []
 
