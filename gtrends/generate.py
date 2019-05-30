@@ -83,7 +83,7 @@ class GoogleTrendsData(object):
 
         if self.normalize:
             # Raise error before we send the request
-            if len(keywords) > 5 & isinstance(keywords, list):
+            if len(keywords) > 5 and isinstance(keywords, list):
                 raise ValueError('Too many keywords for normalizaion.')
 
             try:
