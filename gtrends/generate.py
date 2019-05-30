@@ -7,7 +7,7 @@ from multiprocessing.pool import Pool as ThreadPool
 
 class GoogleTrendsData(object):
     '''Class to get data from Google Trends concurrently.'''
-    def __init__(self, kw: list, normalize: bool, category='', timezone=0, timeframe='', geo='US', gprop=''):
+    def __init__(self, kw: list, normalize: bool, category=0, timezone=0, timeframe='today 5-y', geo='US', gprop=''):
         self.kw = kw
         self.normalize = normalize
         self.cat = category
@@ -62,7 +62,7 @@ class GoogleTrendsData(object):
         print(f"Getting {len(self.kw)} items in {count_threads} processes.")
 
         # Calls gen_data() and adds the filesize returned each call to an self.kw
-        result = (pool.imap_unordered(self.gen_data, self.kw))
+        result = list(pool.imap_unordered(self.gen_data, self.kw))
         pool.close()
         pool.join()
 
