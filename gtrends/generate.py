@@ -119,7 +119,7 @@ class GoogleTrendsData(object):
             return data[cols]
 
     def graph(self, data, filename='o'):
-        p = data.plot(x='date')
+        p = data.plot(x=data.index)
         p.set_title(f'Interest Over Time: {self.norm_str(True)}')
         p.set_ylabel('Interest Level')
         p.set_xlabel('Date')
@@ -127,4 +127,4 @@ class GoogleTrendsData(object):
         return p
 
     def save(self, d):
-        d.to_csv(f'./output/{"".join(self.kw)}{self.norm_str()}.csv', index=False)
+        d.to_csv(f'./output/{"".join(self.kw)}{self.norm_str()}.csv')
