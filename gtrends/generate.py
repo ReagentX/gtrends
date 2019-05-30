@@ -35,6 +35,7 @@ class GoogleTrendsData(object):
             print('Data cached. Reading csv...')
             # Convert the date column from str to datetime
             data['date'] = pd.to_datetime(data['date'])
+            data.set_index('date', drop=True, inplace=True)
             return data
         except FileNotFoundError:
             print('Connecting to Google.')
