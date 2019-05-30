@@ -1,0 +1,26 @@
+astroid==1.6.3
+certifi==2018.1.18
+chardet==3.0.4
+cycler==0.10.0
+-e git+https://github.com/ReagentX/gtrends.git@4d12ac52f4b1101c7a63ff30833dbd371e0f095d#egg=gtrends
+-e git+https://github.com/ReagentX/gtrends.git@4d12ac52f4b1101c7a63ff30833dbd371e0f095d#egg=hltv_scraper
+idna==2.6
+isort==4.3.4
+kiwisolver==1.0.1
+lazy-object-proxy==1.3.1
+lxml==4.2.1
+matplotlib==2.2.2
+mccabe==0.6.1
+numpy==1.14.2
+pandas==0.22.0
+pylint==1.8.4
+pyparsing==2.2.0
+python-dateutil==2.7.2
+pytrends==4.6.0
+pytz==2018.4
+requests==2.18.4
+requests-cache==0.4.13
+-e git+https://github.com/ReagentX/scraper-platform.git@645d9df8df769c24f63a2d373a746ae105cdd9af#egg=scraper_platform
+six==1.11.0
+urllib3==1.22
+wrapt==1.10.11
