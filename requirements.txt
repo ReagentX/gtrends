@@ -22,5 +22,5 @@ requests==2.22.0
 requests-cache==0.4.13
 -e git+https://github.com/ReagentX/scraper-platform.git@645d9df8df769c24f63a2d373a746ae105cdd9af#egg=scraper_platform
 six==1.11.0
-urllib3==1.25.8
+urllib3==1.26.5
 wrapt==1.10.11
