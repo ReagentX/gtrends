@@ -1,5 +1,5 @@
 astroid==1.6.3
-certifi==2018.1.18
+certifi==2022.12.7
 chardet==3.0.4
 cycler==0.10.0
 -e git+https://github.com/ReagentX/gtrends.git@a84d98d10b85149a2ed630deb80190ced3ccfb83#egg=gtrends
