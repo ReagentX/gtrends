@@ -18,7 +18,7 @@ pyparsing==2.2.0
 python-dateutil==2.7.2
 pytrends==4.6.0
 pytz==2018.4
-requests==2.22.0
+requests==2.31.0
 requests-cache==0.4.13
 -e git+https://github.com/ReagentX/scraper-platform.git@645d9df8df769c24f63a2d373a746ae105cdd9af#egg=scraper_platform
 six==1.11.0
