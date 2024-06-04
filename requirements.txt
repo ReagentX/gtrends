@@ -4,7 +4,7 @@ chardet==3.0.4
 cycler==0.10.0
 -e git+https://github.com/ReagentX/gtrends.git@a84d98d10b85149a2ed630deb80190ced3ccfb83#egg=gtrends
 -e git+https://github.com/ReagentX/gtrends.git@a84d98d10b85149a2ed630deb80190ced3ccfb83#egg=hltv_scraper
-idna==2.6
+idna==3.7
 isort==4.3.4
 kiwisolver==1.0.1
 lazy-object-proxy==1.3.1
